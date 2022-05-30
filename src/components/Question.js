@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import Error from "./Error";
 
 function Question(props) {
   const { saveBudget, saveQuestionBudget } = props;
@@ -21,7 +22,7 @@ function Question(props) {
     <Fragment>
       <h2>Place your budget</h2>
       {error ? (
-        <p className="alert    alert-danger    error">Incorrect budget</p>
+        <Error  message="Incorrect budget"/>
       ) : null}
       <form onSubmit={addBudget}>
         <input

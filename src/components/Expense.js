@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Error from "./Error";
 
 function Expense(props) {
   const [nameExpense, saveNameExpense] = useState("");
@@ -15,6 +16,9 @@ function Expense(props) {
   return (
     <form onSubmit={addExpense}>
       <h2>Add expenses</h2>
+      {error ? (
+        <Error  message="Both fields are required"/>
+      ) : null}
       <div className="campo">
         <label htmlFor="nameExpense">Name expense</label>
         <input
