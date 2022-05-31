@@ -1,24 +1,33 @@
 import React, { useState } from "react";
 import Error from "./Error";
+import shortid from "shortid";
 
-function Expense(props) {
+function FormExpense(props) {
+  const { saveExpense } = props;
   const [nameExpense, saveNameExpense] = useState("");
-  const [expense, saveExpense] = useState(0);
+  const [amountExpense, saveAmountExpense] = useState(0);
   const [error, saveError] = useState(false);
 
   const addExpense = (e) => {
     e.preventDefault();
-    if (nameExpense === "" || expense < 1 || isNaN(expense)) {
+    if (nameExpense === "" || amountExpense < 1 || isNaN(amountExpense)) {
       saveError(true);
       return;
     }
+    const expense = {
+      nameExpense,
+      amountExpense,
+      id: shortid.generate(),
+    };
+    saveExpense(expense);
+    saveError(false);
+    saveNameExpense("");
+    saveAmountExpense("");
   };
   return (
     <form onSubmit={addExpense}>
       <h2>Add expenses</h2>
-      {error ? (
-        <Error  message="Both fields are required"/>
-      ) : null}
+      {error ? <Error message="Both fields are required" /> : null}
       <div className="campo">
         <label htmlFor="nameExpense">Name expense</label>
         <input
@@ -26,6 +35,7 @@ function Expense(props) {
           className="u-full-width"
           id="nameExpense"
           placeholder="Ej. Transport"
+          value={nameExpense}
           onChange={(e) => saveNameExpense(e.target.value)}
         />
       </div>
@@ -37,7 +47,8 @@ function Expense(props) {
           className="u-full-width"
           id="expense"
           placeholder="Ej. 300"
-          onChange={(e) => saveExpense(parseInt(e.target.value, 10))}
+          value={amountExpense}
+          onChange={(e) => saveAmountExpense(parseInt(e.target.value, 10))}
         />
       </div>
 
@@ -50,4 +61,4 @@ function Expense(props) {
   );
 }
 
-export default Expense;
+export default FormExpense;
