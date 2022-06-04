@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import Error from "./Error";
 
 function Question(props) {
-  const { saveBudget, saveQuestionBudget } = props;
+  const { saveBudget, saveQuestionBudget, saveRest } = props;
   const [amount, saveAmount] = useState(0);
   const [error, saveError] = useState(false);
 
@@ -15,15 +15,14 @@ function Question(props) {
 
     saveError(false);
     saveBudget(amount);
+    saveRest(amount);
     saveQuestionBudget(false);
   };
 
   return (
     <Fragment>
       <h2>Place your budget</h2>
-      {error ? (
-        <Error  message="Incorrect budget"/>
-      ) : null}
+      {error ? <Error message="Incorrect budget" /> : null}
       <form onSubmit={addBudget}>
         <input
           type="number"

@@ -30,7 +30,7 @@ function FormExpense(props) {
       <h2>Add expenses</h2>
       {error ? <Error message="Both fields are required" /> : null}
       <div className="campo">
-        <label htmlFor="nameExpense">Name expense</label>
+        <label htmlFor="nameExpense">Expense name</label>
         <input
           type="text"
           className="u-full-width"
